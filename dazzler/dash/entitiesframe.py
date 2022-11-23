@@ -23,6 +23,7 @@ class EntitiesFrameDashboard(ABC):
     def __init__(self, app: Dash,
                     title: str, entity_type: str):
         super().__init__()
+        print("entity frame - EntitiesFrameDashboard")
         self._app = app
         self._title = title
         self._entity_type = entity_type

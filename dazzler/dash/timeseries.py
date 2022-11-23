@@ -23,6 +23,7 @@ def fiware_context_for(app: Dash) -> FiwareContext:
 class QuantumLeapSource:
 
     def __init__(self, app: Dash):
+        print("timeseries - QuantumLeapSource")
         cfg = dazzler_config()
         self._client = QuantumLeapClient(
             base_url=URI(str(cfg.quantumleap_base_url)),

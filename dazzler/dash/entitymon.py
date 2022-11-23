@@ -23,6 +23,7 @@ class EntityMonitorDashboard(ABC):
                     title: str, entity_type: str,
                     refresh_rate_millis: int = 5*1000):
         super().__init__()
+        print("entity mon - EntityMonitorDashboard")
         self._app = app
         self._title = title
         self._entity_type = entity_type
