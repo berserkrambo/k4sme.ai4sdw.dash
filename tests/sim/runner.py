@@ -3,8 +3,7 @@ from time import sleep
 from fipy.docker import DockerCompose
 from fipy.ngsi.quantumleap import QuantumLeapClient
 
-from tests.util.fiware import quantumleap_client, \
-    inspection_demo_batches_stream, roughness_estimate_batches_stream
+from tests.util.fiware import quantumleap_client, roughness_estimate_batches_stream
 
 
 docker = DockerCompose(__file__)
@@ -17,8 +16,7 @@ def bootstrap():
 
 def send_entities(quantumleap: QuantumLeapClient):
 
-    batch = next(roughness_estimate_batches_stream) + \
-            next(inspection_demo_batches_stream)
+    batch = next(roughness_estimate_batches_stream)
     quantumleap.insert_entities(batch)
 
 

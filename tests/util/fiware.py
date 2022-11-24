@@ -7,7 +7,7 @@ from fipy.sim.generator import BoolAttr, float_attr_close_to, \
     EntityFactory, entity_batch
 from fipy.wait import wait_for_quantumleap
 
-from dazzler.ngsy import InspectionDemoEntity, RoughnessEstimateEntity
+from dazzler.ngsy import RoughnessEstimateEntity
 
 
 TENANT = 'demo'
@@ -45,24 +45,3 @@ def mk_roughness_estimate_batches_stream() \
 
 
 roughness_estimate_batches_stream = mk_roughness_estimate_batches_stream()
-
-
-def mk_inspection_demo() -> InspectionDemoEntity:
-    area = float_attr_close_to(0)
-    okay = BoolAttr.new(area.value >= 0.4)
-    return InspectionDemoEntity(
-        id = '',
-        okay=okay,
-        area=area
-    )
-
-
-def mk_inspection_demo_batches_stream() \
-    -> Generator[List[InspectionDemoEntity], None, None]:
-    factory = EntityFactory.with_numeric_suffixes(
-        how_many=2, generator=mk_inspection_demo
-    )
-    return entity_batch(factory)
-
-
-inspection_demo_batches_stream = mk_inspection_demo_batches_stream()
