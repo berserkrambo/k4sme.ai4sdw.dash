@@ -35,7 +35,7 @@ async def prova():
 
     print("after client")
 
-    entities = client.list_entities(entity_type='RoughnessEstimate')
+    entities = client.list_entities(entity_type='Machine')
     print(f"entities: {entities}")
 
     print("after entities")
