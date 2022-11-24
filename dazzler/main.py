@@ -1,20 +1,17 @@
 from fastapi import FastAPI
 import uvicorn
 
-from dazzler import __version__
-from dazzler.config import dazzler_config
 from fipy.ngsi.quantumleap import QuantumLeapClient
 from fipy.ngsi.headers import FiwareContext
 from uri import URI
 
 app = FastAPI()
-DashboardSubApp(app, __name__).mount_dashboards(dazzler_config())
 
 
 
 @app.get('/')
 def read_root():
-    return {'dazzler': __version__}
+    return {'dazzler000000000'}
 
 @app.get("/a")
 async def a():
