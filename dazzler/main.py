@@ -43,7 +43,7 @@ async def prova():
     out = []
     for id in entities:
         r = client.entity_series(
-        entity_id = id.id, entity_type = 'RoughnessEstimate',
+        entity_id = id.id, entity_type = 'Machine',
         )
 
         out.append(r.dict())
