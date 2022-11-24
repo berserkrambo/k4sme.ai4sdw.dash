@@ -3,10 +3,8 @@ import uvicorn
 
 from dazzler import __version__
 from dazzler.config import dazzler_config
-from dazzler.dash.wiring import DashboardSubApp
 from fipy.ngsi.quantumleap import QuantumLeapClient
 from fipy.ngsi.headers import FiwareContext
-from dazzler.dash.wiring import BasePath
 from uri import URI
 
 app = FastAPI()
@@ -33,7 +31,7 @@ async def prova():
     client = QuantumLeapClient(
     base_url = URI("http://quantumleap:8668/"),
     ctx = FiwareContext(
-        service='demo',
+        service='ai4sdw',
         service_path='/'
     )
     )
