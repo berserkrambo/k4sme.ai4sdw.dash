@@ -12,7 +12,7 @@ COPY dazzler /app/dazzler
 
 ENV PYTHONPATH=$PWD:$PYTHONPATH
 
-EXPOSE 8000
+EXPOSE 8001
 
 ENTRYPOINT ["uvicorn", "dazzler.main:app", \
-            "--host", "0.0.0.0", "--port", "8000"]
+            "--host", "0.0.0.0", "--port", "8001"]
