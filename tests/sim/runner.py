@@ -16,12 +16,11 @@ def bootstrap():
 
 
 def send_entities(quantumleap: QuantumLeapClient):
-    try:
-        batch = next(roughness_estimate_batches_stream) + \
-                next(inspection_demo_batches_stream)
-        quantumleap.insert_entities(batch)
-    except Exception as e:
-        print(e)
+
+    batch = next(roughness_estimate_batches_stream) + \
+            next(inspection_demo_batches_stream)
+    quantumleap.insert_entities(batch)
+
 
 
 def run():

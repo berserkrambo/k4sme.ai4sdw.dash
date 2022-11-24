@@ -26,9 +26,9 @@ services:
       - CACHE_QUERIES=False
       - LOGLEVEL=DEBUG
 
-  dazzler:
+  dash:
     build: ../../
-    image: kitt4sme/dazzler
+    image: k4sme/dash
     networks:
       - simtests
     ports:
