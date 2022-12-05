@@ -28,7 +28,7 @@ async def prova():
     client = QuantumLeapClient(
     base_url = URI("http://quantumleap:8668/"),
     ctx = FiwareContext(
-        service='ai4sdw',
+        service='ai4sdw_service',
         service_path='/'
     )
     )
