@@ -28,14 +28,14 @@ async def prova():
     client = QuantumLeapClient(
     base_url = URI("http://quantumleap:8668/"),
     ctx = FiwareContext(
-        service='ai4sdw_worker',
+        service='AI4SDW',
         service_path='/'
     )
     )
 
     print("after client")
 
-    entities = client.list_entities(entity_type='Machine')
+    entities = client.list_entities(entity_type='ai4sdw_service')
     print(f"entities: {entities}")
 
     print("after entities")
@@ -43,7 +43,7 @@ async def prova():
     out = []
     for id in entities:
         r = client.entity_series(
-        entity_id = id.id, entity_type = 'Machine',
+        entity_id = id.id, entity_type = 'ai4sdw_service',
         )
 
         out.append(r.dict())

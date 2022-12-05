@@ -1,10 +1,11 @@
-from fipy.ngsi.entity import BaseEntity, BoolAttr, FloatAttr, TextAttr
+from fipy.ngsi.entity import BaseEntity, BoolAttr, FloatAttr
 
 
 
-ROUGHNESS_ESTIMATE_TYPE = 'RoughnessEstimate'
 
-class RoughnessEstimateEntity(BaseEntity):
-    type = ROUGHNESS_ESTIMATE_TYPE
-    acceleration: FloatAttr
-    roughness: FloatAttr
+
+class AI4SDW_services(BaseEntity):
+    type = 'ai4sdw_service'
+    area_crossed: BoolAttr
+    fall_pred: BoolAttr
+    risk_leve: FloatAttr
