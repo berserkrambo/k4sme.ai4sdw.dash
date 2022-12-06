@@ -8,23 +8,8 @@ from uri import URI
 app = FastAPI()
 
 
-
 @app.get('/')
 def read_root():
-    return {'dazzler000000000'}
-
-@app.get("/a")
-async def a():
-    return "a-async"
-
-@app.get("/b")
-def b():
-    return "b-not_async"
-
-@app.get("/prova")
-async def prova():
-    print("init prova")
-
     client = QuantumLeapClient(
     base_url = URI("http://quantumleap:8668/"),
     ctx = FiwareContext(
@@ -33,12 +18,8 @@ async def prova():
     )
     )
 
-    print("after client")
-
     entities = client.list_entities(entity_type='ai4sdw_service')
-    print(f"entities: {entities}")
-
-    print("after entities")
+    print(f"number of workers: {len(entities)}")
 
     out = []
     for id in entities:
@@ -49,10 +30,6 @@ async def prova():
         out.append(r.dict())
 
     return out
-
-@app.get("/version")
-def read_version():
-    return read_root()
 
 
 if __name__ == '__main__':
