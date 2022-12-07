@@ -8,9 +8,9 @@ COPY poetry.lock pyproject.toml /app/
 RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
-COPY dashboard /app/dazzler
+COPY dashboard /app/dashboard
 
 ENV PYTHONPATH=$PWD:$PYTHONPATH
 
 EXPOSE 8081
-ENTRYPOINT ["streamlit", "run", "dazzler/main_st.py", "--server.address", "0.0.0.0", "--server.port", "8081"]
+ENTRYPOINT ["streamlit", "run", "dashboard/main.py", "--server.address", "0.0.0.0", "--server.port", "8081"]
