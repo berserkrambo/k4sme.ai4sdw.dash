@@ -13,4 +13,4 @@ COPY dashboard /app/dashboard
 ENV PYTHONPATH=$PWD:$PYTHONPATH
 
 EXPOSE 8000
-ENTRYPOINT ["streamlit", "run", "dashboard/main.py", "--server.headless", "true", "--server.port", "8000"]
+ENTRYPOINT ["streamlit", "run", "--server.headless", "true", "--server.port", "8000", "dashboard/main.py"]
