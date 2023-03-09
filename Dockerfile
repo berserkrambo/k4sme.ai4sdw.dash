@@ -9,7 +9,7 @@ RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
 COPY dashboard /app/dashboard
-COPY streamlit-app.py /app/streamlit-app.py
+
 ENV PYTHONPATH=$PWD:$PYTHONPATH
 
 EXPOSE 8501
