@@ -92,7 +92,7 @@ def main():
 
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # import pickle
     # with open("/home/rgasparini/Desktop/Main_2022-12-10_10-47-58.bin", "rb") as f:
     #     data = pickle.load(f)
@@ -103,4 +103,4 @@ if __name__ == '__main__':
     #
     # a=0
 
-    main()
+    # main()
