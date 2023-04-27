@@ -40,16 +40,32 @@ def get_data(client, e_id, d1, d2, t_aggr):
 
         t_aggr = str(t_aggr).upper().replace("M", "T")
         data = pd.DataFrame(data)
-        group = data.resample(t_aggr, on='index').mean().fillna(0)
 
-        fa = pd.DataFrame(group["fall_pred"])
-        fa["Warning Level"] = [1 for i in range(len(fa["fall_pred"]))]
+        group = data.resample('5S', on='index').mean().fillna(0)
 
-        ac = pd.DataFrame(group["area_crossed"])
-        ac["Warning Level"] = [1 for i in range(len(ac["area_crossed"]))]
+        fa = group["fall_pred"]
+        fa.values[fa.values < 0.9] = 0
+        fa.values[fa.values > 0] = 1
+        group["fall_pred"] = fa
+
+        ac = group["area_crossed"]
+        ac.values[ac.values < 0.9] = 0
+        ac.values[ac.values > 0] = 1
+        group["area_crossed"] = ac
 
         wd = pd.DataFrame(group["risk_level"])
+        ac = pd.DataFrame(group["area_crossed"])
+        fa = pd.DataFrame(group["fall_pred"])
+
+        fa = fa.resample(t_aggr).sum().fillna(0)
+        ac = ac.resample(t_aggr).sum().fillna(0)
+        wd = wd.resample(t_aggr).mean().fillna(0)
+
+        fa["fall_pred"] = fa["fall_pred"].apply(lambda x: 1 if x > 0.9 else 0)
+        ac["area_crossed"] = ac["area_crossed"].apply(lambda x: 1 if x > 0.9 else 0)
         wd["Warning Level"] = [80 for i in range(len(wd["risk_level"]))]
+        ac["Warning Level"] = [1 for i in range(len(ac["area_crossed"]))]
+        fa["Warning Level"] = [1 for i in range(len(fa["fall_pred"]))]
 
         return fa, ac, wd
 
@@ -70,7 +86,7 @@ def main():
 
     t_aggr = st.select_slider(
         'Temporal aggregation',
-        options=['30s', '1m', '5m', '15m', '30m', '1h', '2h', '8h', '12h', '24h'])
+        options=['1m', '5m', '15m', '30m', '1h', '2h', '8h', '12h', '24h'])
 
     if entities is not None:
         res = get_data(client, entity_id, date1, date2, t_aggr)
@@ -93,14 +109,36 @@ def main():
 
 
 # if __name__ == '__main__':
-    # import pickle
-    # with open("/home/rgasparini/Desktop/Main_2022-12-10_10-47-58.bin", "rb") as f:
-    #     data = pickle.load(f)
-    # data = pd.DataFrame(data)
-    # group = data.resample('15S', on='index').mean().fillna(0)
-    # fa = pd.DataFrame(group["fall_pred"])
-    # fa["Warning Level"] = [1 for i in range(len(fa["fall_pred"]))]
-    #
-    # a=0
+#     import pickle
+#     with open("/home/rgasparini/Desktop/Main_2022-12-10_10-47-58.bin", "rb") as f:
+#         data = pickle.load(f)
+#     data = pd.DataFrame(data)
+#
+#     group = data.resample('5S', on='index').mean().fillna(0)
+#
+#     fa = group["fall_pred"]
+#     fa.values[fa.values < 0.9] = 0
+#     fa.values[fa.values > 0] = 1
+#     group["fall_pred"] = fa
+#
+#     ac = group["area_crossed"]
+#     ac.values[ac.values < 0.9] = 0
+#     ac.values[ac.values > 0] = 1
+#     group["area_crossed"] = ac
+#
+#     wd = pd.DataFrame(group["risk_level"])
+#     ac = pd.DataFrame(group["area_crossed"])
+#     fa = pd.DataFrame(group["fall_pred"])
+#
+#     fa = fa.resample('1H').sum().fillna(0)
+#     ac = ac.resample('1H').sum().fillna(0)
+#     wd = wd.resample('1H').mean().fillna(0)
+#
+#     fa["fall_pred"] = fa["fall_pred"].apply(lambda x: 1 if x > 0.9 else 0)
+#     ac["area_crossed"] = ac["area_crossed"].apply(lambda x: 1 if x > 0.9 else 0)
+#     wd["Warning Level"] = [80 for i in range(len(wd["risk_level"]))]
+#     ac["Warning Level"] = [1 for i in range(len(ac["area_crossed"]))]
+#     fa["Warning Level"] = [1 for i in range(len(fa["fall_pred"]))]
+#     a = 0
 
     # main()
